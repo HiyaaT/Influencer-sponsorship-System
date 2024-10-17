@@ -1,0 +1,41 @@
+{% extends "layout_in.html" %}
+{%block content%} 
+    <div class="container mt-5 ">
+        <h1 class="mb-4">Campaigns</h1>
+        {%if camps==[]%}
+        <h3>desired category could not be found</h3>
+        <button type="submit" class="btn btn-primary"><a href="{{ url_for('camp_sb') }}" class="text-decoration-none text-white" type="button">search valid</a></button>
+        {%else%}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for camp in camps %}
+                {%if camp.visibility=='public'%}
+                <div class="col" class="form-group">
+                    <div class="card h-100">
+                        <div class="card-body bg-dark text-white">
+                            <h5 class="card-title">{{camp.name}}</h5>
+                            <h6 class="card-subtitle mb-2">{{camp.description}}</h6>
+                            <p class="card-text">Category: {{camp.sponser.category.name}}</p>
+                            {%if current_date < camp.enddate %}
+                            {%if camp.id in camp_ids%}
+                            <button type="submit" class="btn btn-primary" disabled >adreqsent</button>
+                            {%else%}
+                            <div class="container-sm">
+                                <form method="post">
+                                    <input type="number" value="{{camp.id}}" readonly hidden name="id">
+                                    <button type="submit" class="btn btn-primary"><a href="{{ url_for('adreq_by_inf', camp_id=camp.id) }}" class="text-decoration-none text-white" type="button">sendAdRequest</a></button>
+                            </form>
+                            </div>
+                            {%endif%}
+                            
+                            {%else%}
+                            <p class="card-text">Campaign ended on {{camp.enddate}}</p>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {%endif%}
+    </div>
+{%endblock%}

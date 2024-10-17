@@ -1,0 +1,11 @@
+{% extends "layout_sp.html" %}
+{%block content%}  
+<h1 class="mb-4">Recieved requests</h1>
+<h6 class="mb-4">Negociate payment amount</h6>
+<form method='POST'>
+    <input type="number" value="{{ad.id}}" readonly hidden name="id">
+    <label for="payment">Payment Amount</label>
+    <input type="number" value="{{ad.payment_amount}}" name="amount">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</submit>
+{%endblock%}

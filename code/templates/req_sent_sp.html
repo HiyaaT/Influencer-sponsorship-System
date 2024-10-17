@@ -1,0 +1,25 @@
+{% extends "layout_sp.html" %}
+{%block content%}
+<h4>Request sent Status</h4>
+        <table class="table table-striped table-dark table-bordered table-rounded border-bg-dark-subtle align-middle">
+            <thead>
+                <tr>
+                    <th>Request to Campaign</th>
+                    <th>Request Amount</th>
+                    <th>Campaign by</th>
+                    <th>Request Status</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {%for ad in ads%}
+                <tr>
+                    <td>{{ad.campaign.name}}</td>
+                    <td>{{ad.payment_amount}}</td>
+                    <td>{{ad.influencer.username}}</td>
+                    <td>{{ad.status}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+{%endblock%}

@@ -1,0 +1,30 @@
+{% extends "layout_sp.html" %}
+{%block content%}
+<h1 class="mb-4">Recieved requests</h1>
+{%for ad in req%}
+    {%if ad.status=='Pending' %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                {%if ad.req_sent=='negociate_by_inf'%}
+                <h4 class="card-subtitle mb-2">{{ad.influencer.name}} would like to negociate payment</h4>
+                {%else%}
+                <h4 class="card-subtitle mb-2">Adrequest sent by: {{ad.influencer.name}}</h4>
+                {%endif%}
+                <h5 class="card-title">For Campaign: {{ad.campaign.name}}</h5>
+                <h6 class="card-subtitle mb-2">Payment Amount requested: {{ad.payment_amount}}</h6>
+                <form method="post">
+                    <input type="number" value="{{ad.id}}" readonly hidden name="id">
+                    <button type="submit" class="btn btn-primary"><a href="{{url_for('accept_ad_sp', id=ad.id)}}" class="text-decoration-none text-white" type="button">Accept</a></button>
+                    <button type="submit" class="btn btn-primary"><a href="{{url_for('reject_ad_sp', id=ad.id)}}" class="text-decoration-none text-white" type="button">reject</a></button>
+                    <button type="submit" class="btn btn-primary"><a href="{{url_for('negociate_sp', id=ad.id)}}" class="text-decoration-none text-white" type="button">Negociate</a></button>
+                 </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+{%endfor%}
+{%endblock%}
+   

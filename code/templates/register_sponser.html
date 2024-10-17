@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{%block title%}
+Sponser register
+{%endblock%}
+
+{%block content%}
+<h1>Register Sponser</h1>
+<form method='POST' class='form'>
+    <div class="form-group">
+        <label for='name' class="form-label">name</label>
+        <input type="text" name="name" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for='username' class="form-label">Username</label>
+        <input type="text" name="username" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for='password' class="form-label">password</label>
+        <input type="password" name="password" required class="form-control">
+    </div>
+
+    <div>
+        <label>Select Category: </label>
+        <select id="category" name="category" required>
+        {%for cat in cats%}
+            <option value="{{cat.id}}">{{cat.name}}</option>
+        {%endfor%}
+        </select>
+        
+    </div>
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+{%endblock%}

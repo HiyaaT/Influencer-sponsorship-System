@@ -1,0 +1,14 @@
+{% extends "layout_in.html" %}
+{%block content%}  
+    <div class="container mt-5">
+        <h6 class="mb-4">Negociate payment amount</h6>
+        <form method='POST'>
+            <input type="number" value="{{ad.id}}" readonly hidden name="id">
+            <label for="payment">Payment Amount</label>
+            <input type="number" value="{{ad.payment_amount}}" name="amount">
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+
+        </form>
+    </div>
+{%endblock%}

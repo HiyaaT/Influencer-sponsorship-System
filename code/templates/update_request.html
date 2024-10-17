@@ -1,0 +1,39 @@
+{% extends "layout_sp.html" %}
+{%block content%} 
+<h1 class="mb-4">create ad</h1>
+<form method="POST">        
+    <label>Select Campaign: </label>
+    <div class="form-group">
+        <select id="camp" name="camp" class="form-control" disabled required>
+            {% for camp in sp.campaigns %}
+            <option value="{{ camp.id }}" {% if camp.id == ad.id %}selected{% endif %}>{{ camp.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    
+    <div class="form-group">
+        <label for="message">Message to for influencer: </label>
+        <input type="text" class="form-control" name="message" value="{{ad.messages}}">
+    </div>
+    <div class="form-group">
+        <label for="requirements">Requirements:</label>
+        <input type="text" class="form-control" name="requirements" value="{{ad.requirements}}">
+    </div>
+    <div class="form-group">
+        <label for="payment_amount">Payment Amount</label>
+        <input type="number" class="form-control" name="payment_amount" value="{{ad.payment_amount}}" required>
+    </div>
+    <div class="form-group">
+        <label for="influencer">Influencer</label>
+        <input type="text" class="form-control" name="influencer" value="{{inf.name}}">
+    </div>
+    <div>
+        <p>Browse Influencer</p>
+        <button type="submit" class="btn btn-primary"><a href="{{ url_for('in_sb1', ad_id=ad.id) }}" class="text-decoration-none text-white" type="button">Search Influencer</a></button>
+        
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+{%endblock%}

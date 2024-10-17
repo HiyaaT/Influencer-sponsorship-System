@@ -1,0 +1,41 @@
+{% extends "layout_sp.html" %}
+{%block content%}  
+<h1>Update</h1>
+<form method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" value="{{camp.name}}" name="name" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">description</label>
+        <input type="text" class="form-control" value="{{camp.description}}" name="description" required>
+    </div>
+    <div class="mb-3">
+        <label for="startdate" class="form-label">start date</label>
+        <input type="date" class="form-control" value="{{camp.startdate}}" name="startdate" required>
+     </div>
+    <div class="mb-3">
+        <label for="enddate" class="form-label">end date</label>
+        <input type="date" class="form-control" value="{{camp.enddate}}" name="enddate" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="budget" class="form-label">budget</label>
+        <input type="integer" class="form-control" value="{{camp.budget}}" name="budget" required>
+    </div>
+    <div>
+        <label for="visibility">Select Platform:</label>
+        <select value="{{camp.visibility}}" name="visibility" required>
+            <option value="public" {% if camp.visibility  == 'public' %}selected{% endif %}>Public</option>
+            <option value="private" {% if camp.visibility  == 'private' %}selected{% endif %}>Private</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="goals" class="form-label">goals</label>
+        <input type="text" class="form-control" value="{{camp.goals}}" name="goals" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+{%endblock%}

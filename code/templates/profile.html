@@ -1,0 +1,26 @@
+{% extends "layout_in.html" %}
+{%block content%}  
+    <div class="container mt-5">
+        <div class="profile-header">
+        </br>
+        </br>
+    </br>
+</br>
+
+            <h1>{{inf.name}}</h1>
+            <p class="lead">{{inf.username}}</p>
+        </div>
+        <div class="profile-details">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Category</h3>
+                    <p>{{inf.category.name}}</p>
+                </div>
+                <div class="col-md-6">
+                    <h3>Reach</h3>
+                    <p class="lead">{{inf.reach}} on: {{inf.neiche}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}

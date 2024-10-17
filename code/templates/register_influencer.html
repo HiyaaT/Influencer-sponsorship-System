@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{%block title%}
+Influencer register
+{%endblock%}
+
+{%block content%}
+<h1>Register Influencer</h1>
+<form method='POST' class='form'>
+    <div class="form-group">
+        <label for='name' class="form-label">name</label>
+        <input type="text" name="name" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for='username' class="form-label">Username</label>
+        <input type="text" name="username" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for='password' class="form-label">password</label>
+        <input type="password" name="password" required class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for='reach' class="form-label">follower count on socials</label>
+        <input type="number" name="reach" required class="form-control">
+    </div>
+    <div>
+        <label for="neiche">Select Platform:</label>
+        <select id="neiche" name="neiche" required>
+            <option value="Youtube">Youtube</option>
+            <option value="Instagram">Instagram</option>
+            <option value="TickTok">TickTok</option>
+        </select>
+    </div>
+    
+    <div>
+        <label>Select Category: </label>
+        <select id="category" name="category" required>
+        {%for cat in cats%}
+            <option value="{{cat.id}}">{{cat.name}}</option>
+        {%endfor%}
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+{%endblock%}

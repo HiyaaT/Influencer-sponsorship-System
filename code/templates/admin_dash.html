@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/colorbrewer@1.0.0/colorbrewer.min.js"></script>
+    <style>
+        .chart{
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body class="p-3 mb-2 bg-secondary text-white">
+    <nav class="navbar bg-body-tertiary fixed-top bg-dark-subtle text-dark-emphasis">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">ISMS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end bg-dark-subtle text-dark-emphasis" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">admin dashboard</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/admin_dash">Dashboard</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                user management
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/monitor_influencer">monitor influencer</a></li>
+                                <li><a class="dropdown-item" href="/monitor_sponser">monitor sponser</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/"><button class="btn btn-danger">Logout</button></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Admin Dashboard</h1>
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <h5>Adrequest Status</h5>
+                <div class="chart">
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <h5>Registered Users</h5>
+                <div class="chart">
+                    <canvas id="myChart1" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <h5>Category wise Campaign</h5>
+                <div class="chart">
+                    <canvas id="myChart2" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <h5>Campaign Status</h5>
+                <div class="chart">
+                    <canvas id="myChart3" width="400" height="400"></canvas>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <h5>Campaign Visibility</h5>
+                <div class="chart">
+                    <canvas id="myChart4" width="400" height="400"></canvas>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <h5>Flagged/Unflagged Users</h5>
+                <div class="chart">
+                    <canvas id="myChart5" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+            const dict = JSON.parse('{{ dict | tojson | safe }}');
+            const xValues = Object.keys(dict);
+            const yValues = Object.values(dict);
+
+            const user = JSON.parse('{{ user | tojson | safe }}');
+            const xValues1 = Object.keys(user);
+            const yValues1 = Object.values(user);
+
+            const cat_dict = JSON.parse('{{ cat_dict | tojson | safe }}');
+            const xValues2 = Object.keys(cat_dict);
+            const yValues2 = Object.values(cat_dict);
+
+            const finished_camp = JSON.parse('{{ finished_camp | tojson | safe }}');
+            const xValues3= Object.keys(finished_camp);
+            const yValues3= Object.values(finished_camp);
+
+            const visibility_camp = JSON.parse('{{ visibility_camp | tojson | safe }}');
+            const xValues4= Object.keys(visibility_camp);
+            const yValues4= Object.values(visibility_camp);
+
+            const flagged = JSON.parse('{{ flagged | tojson | safe }}');
+            const xValues5= Object.keys(flagged);
+            const yValues5= Object.values(flagged);
+
+            const unflagged = JSON.parse('{{ unflagged | tojson | safe }}');
+            const xValues6= Object.keys(unflagged);
+            const yValues6= Object.values(unflagged);
+            
+            const dynamicColors = xValues2.map(() => {
+                const r = Math.floor(Math.random() * 256);
+                const g = Math.floor(Math.random() * 256);
+                const b = Math.floor(Math.random() * 256);
+                return `rgba(${r}, ${g}, ${b}, 0.2)`;
+              });
+              
+            // Create Chart.js chart
+            new Chart("myChart", {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label:"Adrequest status",
+                        data: yValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            new Chart("myChart1", {
+                type: "bar",
+                data: {
+                    labels: xValues1,
+                    datasets: [{
+                        label: 'Registered users',
+                        data: yValues1,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            new Chart("myChart2", {
+                type: "doughnut",
+                data: {
+                    labels: xValues2,
+                    datasets: [{
+                        label: 'Category wise campaign',
+                        data: yValues2,
+                        backgroundColor:dynamicColors,
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            new Chart("myChart3", {
+                type: "bar",
+                data: {
+                    labels: xValues3,
+                    datasets: [{
+                        label: 'Campaign Status',
+                        data: yValues3,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            new Chart("myChart4", {
+                type: "pie",
+                data: {
+                    labels: xValues4,
+                    datasets: [{
+                        label: 'Campaign Status',
+                        data: yValues4,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+                
+
+            new Chart("myChart5", {
+                type: "bar",
+                data: {
+                    labels: xValues5,
+                    datasets: [{
+                        label: 'Flagged users',
+                        data: yValues5,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Unflagged users',
+                        data: yValues6,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: 1
+                    }
+                    ]
+                }
+            });
+        </script>         
+    </div>
+</body>
+
+</html>

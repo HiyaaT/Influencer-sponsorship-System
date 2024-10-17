@@ -1,0 +1,14 @@
+{% extends "layout_sp.html" %}
+{%block content%}   
+<h1>Search Influencers</h1>
+<h6>if no specific category, click on Search</h6>
+<form method='GET' action='/influencer_sb'>
+    <label for="category">Category:</label>
+    <input type="text" name="category">
+    <label for="category">min reach:</label>
+    <input type="number" name="min_reach">
+    <label for="category">max reach:</label>
+    <input type="number" name="max_reach">
+    <button type="submit">Search</button>
+</form>
+{%endblock%}

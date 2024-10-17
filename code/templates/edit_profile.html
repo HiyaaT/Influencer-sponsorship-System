@@ -1,0 +1,45 @@
+{% extends "layout_in.html" %}
+{%block content%}  
+<div class="container mt-5">
+    <h4>Edit Influencer</h4>
+    <form method='POST' class='form'>
+        <div class="form-group">
+            <label for='name' class="form-label">name</label>
+            <input type="text" name="name" value='{{inf.name}}' required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for='username' class="form-label">Username</label>
+            <input type="text" name="username" value='{{inf.username}}' readonly required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for='password' class="form-label">password</label>
+            <input type="password" name="password" value='{{inf.password}}' required class="form-control">
+        </div>
+    
+        <div class="form-group">
+            <label for='reach' class="form-label">follower count on socials</label>
+            <input type="number" name="reach" value='{{inf.reach}}' required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="neiche">Select Platform:</label>
+            <select id="neiche" name="neiche" class="form-control" required>
+                <option value="Youtube" {% if inf.neiche == 'Youtube' %}selected{% endif %}>YouTube</option>
+                <option value="Instagram" {% if inf.neiche == 'Instagram' %}selected{% endif %}>Instagram</option>
+                <option value="TickTok" {% if inf.neiche == 'TickTok' %}selected{% endif %}>TickTok</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <select id="category" name="category" required>
+                {%for category in categories%}
+                    <option value="{{category.id}}" {% if inf.category_id == category.id %}selected{%endif%}>{{category.name}} </option>
+                {%endfor%}
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+
+{%endblock%}

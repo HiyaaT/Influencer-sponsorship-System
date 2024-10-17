@@ -1,0 +1,33 @@
+{% extends "layout_sp.html" %}
+{%block content%} 
+<h1 class="mb-4">create ad</h1>
+<form method="POST">        
+    <label>Select Campaign: </label>
+    <div class="form-group">
+        <select id="camp" name="camp" class="form-control" required>
+            {% for camp in sp.campaigns %}
+            {%if current_date<camp.enddate%}
+            <option value="{{ camp.id }}">{{ camp.name }}</option>
+            {%endif%}
+            {% endfor %}
+        </select>
+    </div>
+    
+    
+    <div class="form-group">
+        <label for="message">Message to for influencer: </label>
+        <input type="text" class="form-control" name="message">
+    </div>
+    <div class="form-group">
+        <label for="requirements">Requirements:</label>
+        <input type="text" class="form-control" name="requirements">
+    </div>
+    <div class="form-group">
+        <label for="payment_amount">Payment Amount</label>
+        <input type="number" class="form-control" name="payment_amount" required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{%endblock%}
+

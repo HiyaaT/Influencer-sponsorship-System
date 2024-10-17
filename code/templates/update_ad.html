@@ -1,0 +1,31 @@
+{% extends "layout_sp.html" %}
+{%block content%}  
+<h1 class="mb-4">modify adrequests</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for ad in ads %}
+{%if (ad.req_sent=='sp' or ad.req_sent=='negociate_by_sp')and ad.campaign.sponser_id==id and (ad.status=='Pending' or ad.influencer_id==none) %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ad.campaign.name}}</h5>
+                <h6 class="card-subtitle mb-2">{{ad.campaign.description}}</h6>
+                <h6 class="card-subtitle mb-2">Influencer: {{ad.influencer.name}}</h6>
+                {%if ad.status=='Pending'%}
+                <h6 class="card-subtitle mb-2">Status: {{ad.status}} </h6>
+                {%endif%}
+                <h6 class="card-subtitle mb-2">Payment: {{ad.payment_amount}}</h6>
+                {%if ad.status=="Pending" or ad.status is none %}
+                <form method="post">
+                    <input type="number" value="{{ad.id}}" readonly hidden name="id">
+                    <button type="submit" class="btn btn-danger"><a href="{{ url_for('update_page', id=ad.id) }}" class="text-decoration-none text-white" type="button">Update</a></button>
+                    <button type="submit" class="btn btn-danger"><a href="{{ url_for('delete_ad', id=ad.id) }}" class="text-decoration-none text-white" type="button">Delete</a></button>
+                </form>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    {%endif%}
+            
+    {% endfor %}
+</div>
+{%endblock%}

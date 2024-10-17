@@ -1,0 +1,15 @@
+{% extends "layout_in.html" %}
+{%block content%}  
+    <div class="container mt-5">
+        <h1 class="mb-4">ad request form for {{camp.name}}</h1>
+        <form method="POST">
+            <div class="form-group">
+                <input type="number" value="{{camp.id}}" readonly hidden name="id">
+                <label for="payment_amount">Payment Amount Requirement</label>
+                <input type="number" class="form-control" name="payment_amount" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+    </div>
+{%endblock%}

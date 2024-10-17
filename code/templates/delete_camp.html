@@ -1,0 +1,24 @@
+{% extends "layout_sp.html" %}
+{%block content%}
+<h1 class="mb-4">modify campaign</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for camp in camps %}
+        {%if camp.sponser_id == user_id%}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{camp.name}}</h5>
+                <h6 class="card-subtitle mb-2">{{camp.description}}</h6>
+                <form method="post">
+                    <input type="number" value="{{camp.id}}" readonly hidden name="id">
+                    <button type="submit" class="btn btn-danger"><a href="{{ url_for('update_camp', id=camp.id) }}" class="text-decoration-none text-white" type="button">Update</a></button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+    
+{% endfor %}
+</div>
+{%endblock%}
